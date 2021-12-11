@@ -12,13 +12,12 @@ export default function App() {
     setNum(e.target.value);
   };
 
-  const clickHandler = async () => {
-    const numArray = num.split("");
-
+  const blurHandler = () => {
     setBiteCount(0);
     setEatCount(0);
-
+    const numArray = num.split("");
     numArray.forEach((elem, index) => {
+      console.log("index", index);
       if (answer.includes(elem)) {
         if (answer[index] === elem) {
           setBiteCount((prev) => prev + 1);
@@ -27,12 +26,20 @@ export default function App() {
         }
       }
     });
+  };
+
+  const clickHandler = () => {
     setResult(`${biteCount}BITE${eatCount}EAT`);
   };
 
   return (
     <div className="App">
-      <input onChange={changeHandler} type="number" value={num} />
+      <input
+        onChange={changeHandler}
+        onBlur={blurHandler}
+        type="number"
+        value={num}
+      />
       <button onClick={clickHandler}>判定</button>
       {result && <p>{result}</p>}
     </div>
